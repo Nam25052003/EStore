@@ -50,7 +50,7 @@ public class Product_Detail {
 		model.addAttribute("productDetail", Pdao.getReferenceById(IdProudct));
 		model.addAttribute("productColor", PDdao.getColorDetail(IdProudct));
 		model.addAttribute("productSize", PDdao.getSize(IdProudct));
-		
+		model.addAttribute("countCart", addToCartService.getCount());
 		Product product = Pdao.getReferenceById(IdProudct);
 		model.addAttribute("brand", Pdao.findProductDataTop6Brand(product.getBrand()));
 		return "User/Product_Detail";
@@ -70,21 +70,20 @@ public class Product_Detail {
 //	
 	
 //	
-//	@GetMapping("/addtocart")
-//	public String addtoCart(
-//			@RequestParam("id") int id,
-//			@RequestParam("quantity") int quantity,
-//			@RequestParam("color") String color,
-//			@RequestParam("size") String size,
-//			Model model
-//			
-//	) {
-//		
-//		addToCartService.addID(idP,color,size);
-//		
-//		idP = id;
-//		return "redirect:/product-detail" + "?id="+idP;
-//	}
-//	
+	@GetMapping("/addtocart")
+	public String addtoCart(
+			@RequestParam("id") int idProduct,
+			@RequestParam("quantity") int quantity,
+			@RequestParam("color") String color,
+			@RequestParam("size") String size,
+			Model model
+			
+	) {
+		
+		addToCartService.addID(idP,color,size,quantity);
+		
+		idP = idProduct;
+		return "redirect:/product-detail" + "?id="+idP;
+	}
 }
 
